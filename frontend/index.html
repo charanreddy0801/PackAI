@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PackAI - Intelligent Food Packaging</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<!-- Authentication Gate -->
+<div id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-brand">📦 <span>Pack<span>AI</span></span></div>
+    <p class="auth-subtitle">Intelligent Food Packaging Platform</p>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="auth-tab active" type="button">🔐 Login</button>
+      <button id="signupTab" class="auth-tab" type="button">📝 Sign Up</button>
+    </div>
+
+    <form id="loginForm" class="auth-form">
+      <label for="loginEmail">Email</label>
+      <input id="loginEmail" type="email" placeholder="Enter your email" required>
+      <label for="loginPassword">Password</label>
+      <input id="loginPassword" type="password" placeholder="Enter your password" required>
+      <p id="loginError" class="auth-error"></p>
+      <button class="auth-submit" type="submit">Login to Dashboard →</button>
+    </form>
+
+    <form id="signupForm" class="auth-form hidden">
+      <label for="signupName">Full Name</label>
+      <input id="signupName" type="text" placeholder="Enter your name" required>
+      <label for="signupEmail">Email</label>
+      <input id="signupEmail" type="email" placeholder="Enter your email" required>
+      <label for="signupPassword">Password</label>
+      <input id="signupPassword" type="password" minlength="6" placeholder="Minimum 6 characters" required>
+      <label for="signupConfirm">Confirm Password</label>
+      <input id="signupConfirm" type="password" minlength="6" placeholder="Re-enter password" required>
+      <p id="signupError" class="auth-error"></p>
+      <button class="auth-submit" type="submit">Create Account →</button>
+    </form>
+
+    <p class="auth-note">Demo authentication for the college project. Use a secure backend for production.</p>
+  </div>
+</div>
+
+<!-- User profile bar -->
+<div id="profileBar" class="profile-bar hidden">
+  <span>👤 <strong id="profileName">User</strong></span>
+  <span id="profileEmail"></span>
+  <button id="logoutBtn" type="button">🚪 Logout</button>
+</div>
+
+<header class="navbar">
+  <div class="logo"><span>📦</span><div><h2>PackAI</h2><small>Intelligent Packaging Solutions</small></div></div>
+  <nav><a href="#home">Home</a><a href="#recommend">Recommendation</a><a href="#memory">Memory</a><a href="#features">Features</a></nav>
+  <div class="nav-user"><span id="navUserName">Hi, User</span><button id="navLogoutBtn" class="nav-logout" type="button">Logout</button></div>
+  <button class="nav-btn" onclick="scrollToRecommendation()">Get Recommendation</button>
+</header>
+
+<section class="hero reveal" id="home">
+  <div class="hero-content">
+    <span class="badge">AI-POWERED FOOD PACKAGING</span>
+    <h1>Smart Packaging <span>Recommendations</span></h1>
+    <p>Select the right packaging material and specifications based on food properties, storage conditions and desired shelf life.</p>
+    <div class="hero-buttons">
+      <button class="primary-btn" onclick="scrollToRecommendation()">Start Analysis →</button>
+      <button class="secondary-btn" onclick="showHowItWorks()">How It Works</button>
+    </div>
+    <div class="stats"><div><strong>7+</strong><span>Packaging Materials</span></div><div><strong>10+</strong><span>Food Parameters</span></div><div><strong>AI</strong><span>Recommendation Engine</span></div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="package-card"><div class="package-icon">📦</div><h3>AI Packaging Analysis</h3>
+      <div class="analysis-row"><span>Moisture Barrier</span><strong>Excellent</strong></div><div class="progress"><div style="width:92%"></div></div>
+      <div class="analysis-row"><span>Oxygen Barrier</span><strong>High</strong></div><div class="progress"><div style="width:86%"></div></div>
+      <div class="analysis-row"><span>Sustainability</span><strong>Good</strong></div><div class="progress"><div style="width:76%"></div></div>
+      <div class="ai-status">✓ Recommendation Ready</div>
+    </div>
+  </div>
+</section>
+
+<section class="recommend-section reveal" id="recommend">
+  <div class="section-heading"><span class="badge">AI ANALYSIS ENGINE</span><h2>Food Packaging Recommendation</h2><p>Enter product characteristics and storage conditions to generate an intelligent packaging recommendation.</p></div>
+  <div class="reference-chart-panel">
+    <div class="reference-chart-header">
+      <div>
+        <span class="badge">REFERENCE GUIDE</span>
+        <h3>Food & Storage Parameter Reference Chart</h3>
+        <p>When the exact product values are unknown, use these typical starting ranges. Values can vary with variety, maturity, formulation, processing and storage conditions.</p>
+      </div>
+      <div class="chart-tip">💡 Each food item has its own icon • Click <b>Use</b> to auto-fill</div>
+    </div>
+    <div class="reference-table-wrap">
+      <table class="reference-table">
+        <thead><tr><th>Commodity Type</th><th>Food Item</th><th>Moisture Content (%)</th><th>Oil / Fat Content (%)</th><th>pH</th><th>Respiration Rate</th><th>Relative Humidity (%)</th><th>Storage Temperature (°C)</th><th></th></tr></thead>
+        <tbody id="referenceTableBody"></tbody>
+      </table>
+    </div>
+    <p class="reference-note">Reference ranges are indicative starting values, not laboratory measurements. For real production use, measured product data and validated storage specifications should be used.</p>
+  </div>
+
+  <div class="application">
+    <div class="form-panel">
+      <div class="panel-title"><div class="title-icon">🧪</div><div><h3>Food & Storage Parameters</h3><p>Enter product characteristics</p></div></div>
+      <form id="packagingForm">
+        <div class="form-grid">
+          <div class="input-group"><label>Commodity Type</label><select id="commodity"><option value="fruits">Fresh Fruits</option><option value="vegetables">Fresh Vegetables</option><option value="snacks">Snacks / Chips</option><option value="grains">Grains / Cereals</option><option value="bakery">Bakery Products</option><option value="meat">Meat Products</option><option value="dairy">Dairy Products</option><option value="spices">Spices</option></select></div>
+          <div class="input-group food-item-group">
+  <label>Food Item</label>
+  <div class="food-item-picker">
+    <select id="foodItem" aria-label="Food Item"><option value="">Select an item</option></select>
+    <div id="foodItemIcon" class="food-item-icon" aria-hidden="true">🍽️</div>
+  </div>
+  <div id="foodItemName" class="selected-food-name">Choose a food item</div>
+  <small class="input-hint">Select a food item to show its individual icon and auto-fill its typical parameters.</small>
+</div>
+          <div class="input-group"><label>Moisture Content (%)</label><input type="number" id="moisture" value="10" min="0" max="100"></div>
+          <div class="input-group"><label>Oil / Fat Content (%)</label><input type="number" id="fat" value="5" min="0" max="100"></div>
+          <div class="input-group"><label>pH Value</label><input type="number" id="ph" value="6" step="0.1" min="0" max="14"></div>
+          <div class="input-group"><label>Respiration Rate</label><select id="respiration"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div>
+          <div class="input-group"><label>Desired Shelf Life</label><select id="shelfLife"><option value="3">1–3 Days</option><option value="7">4–7 Days</option><option value="14" selected>8–14 Days</option><option value="30">15–30 Days</option><option value="90">30+ Days</option></select></div>
+          <div class="input-group"><label>Storage Temperature (°C)</label><input type="number" id="temperature" value="25"></div>
+          <div class="input-group"><label>Relative Humidity (%)</label><input type="number" id="humidity" value="60" min="0" max="100"></div>
+          <div class="input-group"><label>Transportation Condition</label><select id="transport"><option value="normal">Normal</option><option value="long">Long Distance</option><option value="rough">Rough Handling</option><option value="cold">Cold Chain</option></select></div>
+          <div class="input-group"><label>Storage Type</label><select id="storage"><option value="ambient">Ambient</option><option value="chilled">Chilled</option><option value="frozen">Frozen</option></select></div>
+        </div>
+        <button type="submit" class="analyze-btn">🤖 Analyze & Recommend</button>
+      </form>
+    </div>
+
+    <div class="info-panel"><h3>What will AI analyze?</h3>
+      <div class="info-item"><span>💧</span><div><strong>Moisture Protection</strong><p>Determines required WVTR barrier.</p></div></div>
+      <div class="info-item"><span>🫧</span><div><strong>Oxygen Protection</strong><p>Determines required OTR barrier.</p></div></div>
+      <div class="info-item"><span>🌡️</span><div><strong>Storage Conditions</strong><p>Considers temperature and humidity.</p></div></div>
+      <div class="info-item"><span>♻️</span><div><strong>Sustainability</strong><p>Suggests eco-friendly alternatives.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="results-section reveal" id="results">
+  <div class="section-heading"><span class="badge">AI GENERATED RESULT</span><h2>Packaging Recommendation</h2></div>
+  <div class="results-container">
+    <div class="recommendation-main">
+      <div class="recommendation-header"><div><span>BEST MATCH</span><h2 id="materialName">PET / PE Laminate</h2><p id="materialDescription">High barrier packaging structure.</p></div><div class="match-score"><strong id="matchScore">94%</strong><span>Match</span></div></div>
+      <div class="spec-grid">
+        <div class="spec-card"><span>OTR</span><strong id="otr">Low</strong><small>Oxygen Transmission Rate</small></div>
+        <div class="spec-card"><span>WVTR</span><strong id="wvtr">Low</strong><small>Water Vapor Transmission</small></div>
+        <div class="spec-card"><span>Thickness</span><strong id="thickness">70–100 μm</strong><small>Recommended Film</small></div>
+        <div class="spec-card"><span>Sealability</span><strong id="sealability">Excellent</strong><small>Heat Seal Performance</small></div>
+        <div class="spec-card"><span>Strength</span><strong id="strength">High</strong><small>Mechanical Strength</small></div>
+        <div class="spec-card"><span>MAP</span><strong id="map">Suitable</strong><small>Modified Atmosphere</small></div>
+      </div>
+      <div class="map-box"><div><h3>🌬️ Recommended MAP Gas Composition</h3><p>Suggested atmosphere for improved shelf life</p></div><div class="gas-values"><div><strong id="oxygen">5%</strong><span>O₂</span></div><div><strong id="carbon">5%</strong><span>CO₂</span></div><div><strong id="nitrogen">90%</strong><span>N₂</span></div></div></div>
+    </div>
+    <div class="side-results">
+      <div class="score-card"><h3>♻️ Sustainability</h3><div class="score-number"><strong id="sustainability">82</strong><span>/100</span></div><div class="score-progress"><div id="sustainabilityBar"></div></div><p>Environmental impact score</p></div>
+      <div class="score-card"><h3>💰 Cost Optimization</h3><div class="cost"><strong id="costLevel">Medium</strong></div><p id="costText">Balanced between cost and performance.</p></div>
+      <div class="score-card"><h3>⏳ Estimated Shelf Life</h3><div class="shelf"><strong id="estimatedShelf">14–18 Days</strong></div><p id="shelfLifeMonths">Approximately 0.5–0.6 Months</p></div>
+      <div class="score-card"><h3>♻️ Recyclability</h3><div class="cost"><strong id="recyclability">Conditionally Recyclable</strong></div><p id="recyclabilityNote">Depends on local recycling infrastructure and material structure.</p></div>
+    </div>
+  </div>
+  <div class="packaging-details">
+    <div class="details-card"><h3>📦 Alternative Packaging Materials</h3><ul id="alternativeMaterials"><li>Mono-material PE film</li><li>Paper / board with barrier coating</li><li>Bio-based film where suitable</li></ul></div>
+    <div class="details-card"><h3>🏭 Example Manufacturing Companies</h3><ul id="manufacturers"><li>Amcor</li><li>UFlex</li><li>Huhtamaki</li><li>Mondi</li><li>Berry Global</li></ul></div>
+    <div class="details-card"><h3>💡 Why This Material Is Used</h3><p id="materialReason">It is selected to provide the required barrier, sealing, strength and product-protection performance for the selected food and storage conditions.</p></div>
+  </div>
+</section>
+
+<section class="memory-section reveal" id="memory">
+  <div class="section-heading"><span class="badge">HINDSIGHT MEMORY</span><h2>PackAI Remembers Your Packaging Decisions</h2><p>Hindsight gives PackAI persistent memory so future recommendations can use your past preferences and packaging choices.</p></div>
+  <div class="memory-grid">
+    <div class="memory-card memory-status-card">
+      <div class="memory-card-top"><h3>🧠 Memory Status</h3><span id="memoryStatusBadge" class="memory-badge">Checking…</span></div>
+      <p id="memoryStatusText">Connecting to Hindsight…</p>
+      <button type="button" class="memory-btn" id="refreshMemoryBtn">Refresh Memory</button>
+    </div>
+    <div class="memory-card">
+      <div class="memory-card-top"><h3>🔎 What PackAI Recalls</h3><span id="memoryCount" class="memory-count">0</span></div>
+      <div id="memoryList" class="memory-list"><div class="memory-empty">Run an analysis to build your first packaging memory.</div></div>
+    </div>
+    <div class="memory-card groq-card">
+      <div class="memory-card-top"><h3>⚡ Groq AI Advisor</h3><span id="groqStatusBadge" class="memory-badge">Checking…</span></div>
+      <p id="groqAdvice">Run a packaging analysis to ask the Groq LLM for a concise explanation using your recommendation and Hindsight memories.</p>
+      <button type="button" class="memory-btn" id="groqAdviceBtn" disabled>Ask Groq About This Recommendation</button>
+    </div>
+  </div>
+</section>
+
+<section class="features-section reveal" id="features">
+  <div class="section-heading"><span class="badge">SMART FEATURES</span><h2>Everything in One Platform</h2></div>
+  <div class="feature-grid">
+    <div class="feature-card"><div>🤖</div><h3>AI Recommendation</h3><p>Analyze food properties and recommend suitable packaging materials.</p></div>
+    <div class="feature-card"><div>📊</div><h3>Barrier Analysis</h3><p>Determine OTR and WVTR requirements based on product characteristics.</p></div>
+    <div class="feature-card"><div>🌱</div><h3>Eco Packaging</h3><p>Compare recyclable and biodegradable packaging alternatives.</p></div>
+    <div class="feature-card"><div>📈</div><h3>Shelf-Life Analysis</h3><p>Estimate potential shelf life based on packaging and conditions.</p></div>
+    <div class="feature-card"><div>🌬️</div><h3>MAP Optimization</h3><p>Recommend modified atmosphere gas composition for fresh produce.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content"><div><h2>📦 PackAI</h2><p>AI-powered intelligent food packaging recommendation platform.</p></div><div><h4>Technology</h4><p>HTML • CSS • JavaScript</p><p>Python • Machine Learning</p></div><div><h4>Application Areas</h4><p>Food Industry</p><p>Agriculture</p><p>Research & Development</p></div></div>
+  <div class="copyright">© 2026 PackAI — Intelligent Packaging Recommendation System</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
